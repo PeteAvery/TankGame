@@ -14,7 +14,6 @@ ATank* ATankPlayerController::GetControlledTank() const
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	
 
 
 
@@ -54,7 +53,30 @@ void ATankPlayerController::AimTowardsCrosshair()
 //get world location if linetrace through crosshair, true if hits landscape.
 bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) const
 {
-	OutHitLocation = FVector(1.0);
+	//find the crosshair position
+	int32 ViewPortSizeX, ViewPortSizeY;
+	GetViewportSize(ViewPortSizeX, ViewPortSizeY);
+	FVector2D ScreenLocation((ViewPortSizeX * CrossHairXLocation), (ViewPortSizeY * CrossHairYLocation));
+	//I did the above... which worked. He did as follows : auto ScreenLocation = FVector2D(x,y)(as above)
+	FVector LookDirection;
+	if (GetLookDirection(ScreenLocation, LookDirection))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Look Direction : %s"), *LookDirection.ToString())
+	}
+		
+	//Line-Trace along that look direction and see what we hit, up to a maximum range.
 	return true;
+}
 
+bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector &LookDirection) const
+{
+	//"De-Project" the screen position of the crosshair to a world position
+	FVector WorldLocation; //This is not really required for what we need, but is required for the method below.
+	DeprojectScreenPositionToWorld(
+		ScreenLocation.X,
+		ScreenLocation.Y,
+		WorldLocation,
+		LookDirection); //lookdirection is defined in the brackets at the top of this method.
+
+	return true;
 }

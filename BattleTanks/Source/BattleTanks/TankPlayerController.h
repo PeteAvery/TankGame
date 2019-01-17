@@ -23,19 +23,30 @@ private:
 
 	bool GetSightRayHitLocation(FVector& OutHitLocation) const;
 
+	 UPROPERTY(EditAnywhere)
+		float CrossHairXLocation = 0.5f;
+
+	 UPROPERTY(EditAnywhere)
+		float CrossHairYLocation = 0.3333f;
+	
+	 ATank* GetControlledTank() const;
+
+	 bool GetLookDirection(FVector2D ScreenLocation, FVector &LookDirection) const;
+
+
 public:
 
 	
+	virtual void BeginPlay() override;
 
-	ATank* GetControlledTank() const;
+	virtual void Tick(float DeltaTime) override;
+	
 
 	
 
 protected:
 
-	virtual void BeginPlay() override;
-
-	virtual void Tick(float DeltaTime) override;
+	
 
 	
 };
