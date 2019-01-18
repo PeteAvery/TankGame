@@ -19,6 +19,10 @@ class BATTLETANKS_API ATankPlayerController : public APlayerController
 
 private:
 
+	//FHitResult GetLookVectorHitLocation(FVector &LookDirection) const;
+									//IN paramter			OUT parameter
+	bool GetLookVectorHitLocation(FVector LookDirection, FVector &HitLocation) const;
+
 	void AimTowardsCrosshair();
 
 	bool GetSightRayHitLocation(FVector& OutHitLocation) const;
@@ -28,6 +32,9 @@ private:
 
 	 UPROPERTY(EditAnywhere)
 		float CrossHairYLocation = 0.3333f;
+
+	 UPROPERTY(EditAnywhere)
+		 float LineTraceRange = 1000000.0f;
 	
 	 ATank* GetControlledTank() const;
 

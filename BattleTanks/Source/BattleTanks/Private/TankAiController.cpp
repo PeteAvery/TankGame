@@ -39,3 +39,24 @@ void ATankAiController::BeginPlay()
 
 
 }
+
+void ATankAiController::Tick(float DeltaTime)
+{
+
+	Super::Tick(DeltaTime);
+
+	if (GetControlledTank())
+	{
+
+		GetControlledTank()->AimAt(GetPlayerTank()->GetActorLocation());
+
+	}
+	//Aim towards crosshair
+	//AimTowardsCrosshair();
+
+
+}
+
+
+
+
