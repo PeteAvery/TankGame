@@ -3,13 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "TankBarrel.h"
 #include "Components/ActorComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Actor.h"
 #include "TankAimingComponent.generated.h"
 
-
+class UTankBarrel; //forward declaration
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANKS_API UTankAimingComponent : public UActorComponent
 {
@@ -22,7 +23,7 @@ public:
 
 	//A new SET method that will take in:
 	//			a static mesh component pointer called BarrelToSet
-	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
+	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
 	//TODO Set TurretReference
 
@@ -33,7 +34,7 @@ protected:
 
 private:
 
-UStaticMeshComponent *Barrel = nullptr;
+UTankBarrel *Barrel = nullptr;
 
 void MoveBarrelTowards(FVector AimDirection) const;
 		
